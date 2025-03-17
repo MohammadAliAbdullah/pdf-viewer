@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling on the body */
+}
+
+.pdf-viewer-container {
+  display: flex;
+  flex-direction: column;
+  height: 200vh; /* Full viewport height */
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa; /* Light background for contrast */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+.controls button, .controls input {
+  margin: 0 5px; /* Space between controls */
+}
+
+.pdf-container {
+  flex: 1; /* Fill available space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Hide any overflow */
+}
+
+.pdf-container .react-pdf__Page {
+  max-width: 100%; /* Make the PDF full width */
+  max-height: 100vh; /* Prevent vertical overflow */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.page-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Add this to your CSS file (e.g., App.css) */
+.react-pdf__TextLayer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  user-select: text;
+}
+
+.react-pdf__TextLayer div {
+  white-space: pre; /* Keep spacing in text */
+}
+
