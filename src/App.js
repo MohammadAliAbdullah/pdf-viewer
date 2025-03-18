@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import './App.css'; // Ensure to import your CSS file
+import { BrowserRouter, Routes, Route } from 'react-router-dom';  // Correct import
+import Navbar from './components/Navbar';  // Import the Navbar component
+import About from './About';
+import Contact from './Contact';
+import Home from './Home';
+import Books from './Books';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -47,15 +53,19 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center">
       {/* Navigation Bar */}
-      <nav className="w-full bg-blue-600 py-1">
-        <div className="max-w-5xl mx-auto flex justify-between items-center">
-          <h1 className="text-white text-2xl font-bold">Viewer</h1>
-        </div>
-      </nav>
+      <BrowserRouter> {/* Changed Router to BrowserRouter */}
+        <Navbar />
+        <Routes> {/* Use Routes instead of Switch */}
+          <Route path="/" element={<Home />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </BrowserRouter>
 
       {/* PDF Viewer Controls */}
       <div className="my-2 flex items-center space-x-4">
-      <button
+        <button
           onClick={goToPreviousPage}
           disabled={pageNumber <= 1}
           className="bg-blue-600 text-white py-1 px-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
@@ -84,7 +94,7 @@ function App() {
         >
           &raquo;
         </button>
-        <p className={` text-gray py-1 px-2 rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed`}>
+        <p className=" text-gray py-1 px-2 rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed">
           Page {pageNumber} of {numPages || '...'}
         </p>
 
@@ -105,13 +115,6 @@ function App() {
       <p className="mt-1 text-lg text-gray-600">
         Page {pageNumber} of {numPages || '...'}
       </p>
-
-      {/* Footer */}
-      <footer className="w-full bg-blue-600 py-2 mt-5">
-        <div className="max-w-5xl mx-auto text-center text-white">
-          &copy; 2024 MyWebsite. All Rights Reserved.
-        </div>
-      </footer>
     </div>
   );
 }
